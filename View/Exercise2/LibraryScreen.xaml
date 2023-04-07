@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModel="clr-namespace:Chapter9.ViewModel.Exercise2ViewModel.ViewModelLibrary"
+             x:Class="Chapter9.View.Exercise2.LibraryScreen"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#4169E1"
+             Title="LibraryScreen">
+
+    <ContentPage.BindingContext>
+        <ViewModel:LibraryViewModel></ViewModel:LibraryViewModel>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <StackLayout
+            Padding="20">
+            <CarouselView
+                IndicatorView="indicatorView"
+                Loop="False"
+                Position="{Binding Current}"
+                ItemsSource="{Binding LibraryDetails}"
+                CurrentItem="{Binding CurrentItem}" 
+                CurrentItemChangedCommand="{Binding ChangeCommand}"
+                CurrentItemChangedCommandParameter="{Binding Source={RelativeSource Self},Path=CurrentItem}">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid
+                            RowDefinitions="Auto,Auto,Auto"
+                            RowSpacing="10">
+                            <Image
+                                Grid.Row="0"
+                                HeightRequest="350"
+                                Source="{Binding ImageSource}"/>
+                            <Label
+                                Grid.Row="1"
+                                FontAttributes="Bold"
+                                FontSize="30"
+                                TextColor="White"
+                                Text="{Binding Title}"/>
+                            <Label
+                                Grid.Row="2"
+                                TextColor="White"
+                                Text="{Binding Description}"/>
+                        </Grid>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+            <Grid
+                ColumnDefinitions="*,*,*"
+                VerticalOptions="EndAndExpand">
+
+                <Label
+                    Grid.Column="0"
+                    VerticalOptions="Center"
+                    Text="Skip"
+                    TextColor="White">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="TapGestureRecognizerTapped"
+                            NumberOfTapsRequired="1"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                
+                <IndicatorView
+                    Grid.Column="1"
+                    x:Name="indicatorView"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    SelectedIndicatorColor="Orange"
+                    IndicatorSize="10"
+                    IndicatorColor="White"/>
+
+                <Button
+                    Grid.Column="2"
+                    Padding="0"
+                    HeightRequest="60"
+                    WidthRequest="60"
+                    CornerRadius="60"
+                    VerticalOptions="Center"
+                    HorizontalOptions="EndAndExpand"
+                    BackgroundColor="DarkOrange"
+                    Text="{Binding ButtonLabel}"
+                    Command="{Binding NextButtonCommand}"/>
+            </Grid>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
