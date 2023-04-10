@@ -45,6 +45,7 @@
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>
+        
             <Grid
                 ColumnDefinitions="*,*,*"
                 VerticalOptions="EndAndExpand">

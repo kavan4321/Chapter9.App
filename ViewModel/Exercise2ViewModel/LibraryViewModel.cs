@@ -9,7 +9,16 @@ namespace Chapter9.ViewModel.Exercise2ViewModel.ViewModelLibrary
 {
     public class LibraryViewModel:INotifyPropertyChanged
     {
-        public ObservableCollection<LibraryModel> LibraryDetails { get; set; }
+        private ObservableCollection<LibraryModel> _libraryModels;
+        public ObservableCollection<LibraryModel> LibraryDetails 
+        { 
+            get => _libraryModels;
+            set
+            {
+                _libraryModels = value;
+                OnPropertyChanged();
+            }
+        }
 
         private LibraryModel _currentItem;
         public LibraryModel CurrentItem
@@ -21,7 +30,6 @@ namespace Chapter9.ViewModel.Exercise2ViewModel.ViewModelLibrary
                 OnPropertyChanged();
             }
         }
-
         public int _current;
         public int Current
         {
@@ -32,6 +40,7 @@ namespace Chapter9.ViewModel.Exercise2ViewModel.ViewModelLibrary
                 OnPropertyChanged();
             }
         }
+
 
         private string _buttonLabel;
         public string ButtonLabel
@@ -85,24 +94,27 @@ namespace Chapter9.ViewModel.Exercise2ViewModel.ViewModelLibrary
         
         public void FinishChange()
         {
-            Current++;
-            if (ButtonLabel == "Finish" && Current == LibraryDetails.Count()-1)
+            if (Current < LibraryDetails.Count - 1)
             {
-                FinishEvent?.Invoke(this, new EventArgs());
-                Current= 0;
-            }      
+                Current++;                  
+            }
+            else if(Current == LibraryDetails.Count - 1 && ButtonLabel == "Finish")
+            {
+                FinishEvent?.Invoke(this,new EventArgs());
+                Current = 0;
+            }    
         }
 
         public void ChangeValue()
         {
             CurrentItem =LibraryDetails.ElementAt(Current);
+            
             if (CurrentItem == LibraryDetails.Last())
             {
-                ButtonLabel = "Finish";              
+                ButtonLabel = "Finish";     
             }
             else
             {
-
                 ButtonLabel = "Next";
             }             
         }

@@ -49,6 +49,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\arrow.png" />
 	  <None Remove="Resources\Images\book.svg" />
 	  <None Remove="Resources\Images\burger.svg" />
 	  <None Remove="Resources\Images\cooking.png" />
@@ -71,8 +72,10 @@
 	<ItemGroup>
 	  <Folder Include="HttpModel\" />
 	  <Folder Include="Interface\" />
-	  <Folder Include="View\Exercise3\" />
-	  <Folder Include="View\Exercise4\" />
+	  <Folder Include="Model\Exercise5Model\" />
+	  <Folder Include="Model\Exercise6Model\" />
+	  <Folder Include="ViewModel\Exercise5ViewModel\" />
+	  <Folder Include="ViewModel\Exercise6ViewModel\" />
 	  <Folder Include="View\Exercise5\" />
 	  <Folder Include="View\Exercise6\" />
 	</ItemGroup>
@@ -85,6 +88,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\Exercise2\LibraryScreen.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Exercise3\FoodDeliveryScreen.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Exercise4\FoodOrderScreen.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

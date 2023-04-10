@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Chapter9.View.Exercise4.FoodOrderScreen"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:viewmodel="clr-namespace:Chapter9.ViewModel.Exercise4ViewModel.ViewModelOrder"
+             Title="FoodOrderScreen">
+    <ContentPage.BindingContext>
+        <viewmodel:FoodOrderViewModel/>
+    </ContentPage.BindingContext>
+
+
+    <ContentPage.Resources>
+        <Style
+            x:Key="IndicatorStyle"
+            TargetType="Border">
+            <Setter
+                Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter
+                                    Property="HeightRequest"
+                                    Value="15"/>
+                                <Setter
+                                    Property="WidthRequest"
+                                    Value="15"/>
+                                <Setter
+                                    Property="StrokeShape"
+                                    Value="RoundRectangle 7"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter
+                                    Property="HeightRequest"
+                                    Value="25"/>
+                                <Setter
+                                    Property="WidthRequest"
+                                    Value="25"/>
+                                <Setter
+                                    Property="StrokeShape"
+                                    Value="RoundRectangle 12"/>
+                                <Setter
+                                    Property="StrokeThickness"
+                                    Value="3"/>
+                                <Setter
+                                    Property="Stroke"
+                                    Value="Orange"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    <ScrollView>
+        <StackLayout
+            Padding="20"
+            Spacing="10">
+            <Label 
+                HorizontalOptions="EndAndExpand"
+                Text="Skip"
+                FontSize="18"
+                FontAttributes="Bold"
+                TextColor="Coral">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer
+                        NumberOfTapsRequired="1"
+                        Tapped="TapGestureRecognizerTapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+            <CarouselView
+                ItemsSource="{Binding OrderDetails}"
+                IndicatorView="indicatorView"
+                Loop="False"
+                Position="{Binding Position}"
+                CurrentItem="{Binding CurrentItem}"
+                PositionChangedCommand="{Binding ChangeCommand}"
+                PositionChangedCommandParameter="{Binding Source={RelativeSource Self},Path=Position}">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid
+                            RowDefinitions="*,*"
+                            RowSpacing="15">
+                            <Image
+                                Grid.Row="0"
+                                HeightRequest="250"
+                                Source="{Binding ImageSource}"/>
+                            <Grid  
+                                Margin="0,10"
+                                Grid.Row="1"
+                                RowSpacing="10"
+                                RowDefinitions="Auto,Auto">
+                                <Label
+                                    Grid.Row="0"
+                                    FontAttributes="Bold"
+                                    HorizontalTextAlignment="Center"
+                                    HorizontalOptions="Center"
+                                    FontSize="35"
+                                    TextColor="DarkCyan"
+                                    Text="{Binding Title}"/>
+                                <Label
+                                    Grid.Row="1"
+                                    HorizontalTextAlignment="Center"
+                                    HorizontalOptions="Center"
+                                    TextColor="{Binding Color}"
+                                    Text="{Binding Description}"/>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+
+
+            <StackLayout
+                VerticalOptions="EndAndExpand"
+                Spacing="20">
+                <IndicatorView
+                    x:Name="indicatorView"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    IndicatorColor="Transparent"
+                    SelectedIndicatorColor="Transparent">
+                    <IndicatorView.IndicatorTemplate>
+                        <DataTemplate>
+                            <Border
+                                Style="{StaticResource IndicatorStyle}"/>
+                        </DataTemplate>
+                    </IndicatorView.IndicatorTemplate>
+                </IndicatorView>
+               
+                <Border
+                    Padding="15"
+                    StrokeShape="RoundRectangle 25"
+                    HorizontalOptions="Center"
+                    BackgroundColor="{Binding ButtonColor}"
+                    HeightRequest="50"
+                    WidthRequest="50">
+                    <ImageButton
+                        Command="{Binding NextCommand}"
+                        Source="arrow"
+                        Rotation="180"/>
+                </Border>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
