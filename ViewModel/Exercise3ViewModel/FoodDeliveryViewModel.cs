@@ -21,17 +21,6 @@ namespace Chapter9.ViewModel.Exercise3ViewModel
             }
         }
 
-        private DeliveryModel _currentItem;
-        public DeliveryModel CurrentItem
-        {
-            get { return _currentItem; }
-            set
-            {
-                _currentItem= value;
-                OnPropertyChanged();
-            }
-        }
-
 
         public event EventHandler NextPageEvent;
         public ICommand NextCommand { get; private set; }
@@ -40,8 +29,6 @@ namespace Chapter9.ViewModel.Exercise3ViewModel
         {
             Details();
             NextCommand = new Command(ChangeDetails);
-            CurrentItem=FoodDetails.FirstOrDefault();
-            Position = FoodDetails.IndexOf(CurrentItem)+1;
         }
 
         public void Details()
@@ -71,17 +58,16 @@ namespace Chapter9.ViewModel.Exercise3ViewModel
 
         public void ChangeDetails()
         {
-            if (Position< FoodDetails.Count-1)
+            if (Position >= FoodDetails.Count - 1)
             {
-                Position++;
-                CurrentItem = FoodDetails.ElementAt(Position);               
+                NextPageEvent?.Invoke(this, new EventArgs());
+                Position = 0;
             }
             else
             {
-                NextPageEvent?.Invoke(this,new EventArgs());
-                Position = 0;
+                Position += 1;
             }
-            
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

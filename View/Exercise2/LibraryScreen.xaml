@@ -19,9 +19,7 @@
                 Loop="False"
                 Position="{Binding Current}"
                 ItemsSource="{Binding LibraryDetails}"
-                CurrentItem="{Binding CurrentItem}" 
-                CurrentItemChangedCommand="{Binding ChangeCommand}"
-                CurrentItemChangedCommandParameter="{Binding Source={RelativeSource Self},Path=CurrentItem}">
+                PositionChangedCommand="{Binding ItemChangeCommand}">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
                         <Grid

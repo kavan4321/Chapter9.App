@@ -64,10 +64,7 @@
                 ItemsSource="{Binding FoodDetails}"
                 IndicatorView="indicatorView"
                 Loop="False"
-                Position="{Binding Position}"
-                CurrentItem="{Binding CurrentItem}"
-                PositionChangedCommand="{Binding ChangeCommand}"
-                PositionChangedCommandParameter="{Binding Source={RelativeSource Self},Path=Position}">
+                Position="{Binding Position}">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
                         <Grid
@@ -102,11 +99,6 @@
                 </CarouselView.ItemTemplate>
             </CarouselView>
 
-
-            <Label
-                Text="{Binding Position}"/>
-            <Label
-                Text="{Binding CurrentItem.Title}"/>
 
             <StackLayout
                 Orientation="Horizontal"

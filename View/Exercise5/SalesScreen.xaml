@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Chapter9.View.Exercise5.SalesScreen"
+             xmlns:VieewModel="clr-namespace:Chapter9.ViewModel.Exercise5ViewModel.ViewModelSales"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#6CB4EE"
+             Title="SalesScreen">
+
+
+    <ContentPage.BindingContext>
+        <VieewModel:SalesViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <Style
+            x:Key="IndicatorStyle"
+            TargetType="BoxView">
+            <Setter
+                Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter
+                                    Property="HeightRequest"
+                                    Value="6"/>
+                                <Setter
+                                    Property="WidthRequest"
+                                    Value="6"/>
+                                <Setter
+                                    Property="Color"
+                                    Value="White"/>
+                                <Setter
+                                    Property="CornerRadius"
+                                    Value="6"/>
+                                <Setter
+                                    Property="Margin"
+                                    Value="10"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter
+                                    Property="HeightRequest"
+                                    Value="12"/>
+                                <Setter
+                                    Property="WidthRequest"
+                                    Value="12"/>
+                                <Setter
+                                    Property="Color"
+                                    Value="White"/>
+                                <Setter
+                                    Property="CornerRadius"
+                                    Value="12"/>
+                                <Setter
+                                    Property="Margin"
+                                    Value="10"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+    </ContentPage.Resources>
+    <ScrollView>
+        <StackLayout
+            Padding="10">
+            <Label 
+                FontSize="18"
+                TextColor="White"
+                HorizontalOptions="Center"
+                Text="Welcome to"/>
+            <Label 
+                FontSize="50"
+                FontAttributes="Bold"
+                TextColor="White"
+                HorizontalOptions="Center"
+                Text="Orisale"/>
+            <CarouselView
+                Margin="0,30"
+                IndicatorView="indicatorView"
+                ItemsSource="{Binding SalesDetails}"
+                PeekAreaInsets="20">
+                <CarouselView.ItemsLayout>
+                    <LinearItemsLayout
+                        Orientation="Horizontal"
+                        ItemSpacing="20"/>
+                </CarouselView.ItemsLayout>
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid
+                            RowDefinitions="Auto,Auto"
+                            RowSpacing="30">
+                            <Border
+                                Grid.Row="0"
+                                StrokeShape="RoundRectangle 50"
+                                WidthRequest="200"
+                                HeightRequest="300">
+                                <Image
+                                    Source="{Binding ImageSource}"/>
+                            </Border>
+                            <Label
+                                Grid.Row="1"
+                                FontSize="20"
+                                TextColor="White"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding Title}"/>
+                        </Grid>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+            <IndicatorView
+                    x:Name="indicatorView"
+                    VerticalOptions="EndAndExpand"
+                    HorizontalOptions="Center"
+                    IndicatorColor="Transparent"
+                    SelectedIndicatorColor="Transparent">
+                <IndicatorView.IndicatorTemplate>
+                    <DataTemplate>
+                        <BoxView
+                                Style="{StaticResource IndicatorStyle}"/>
+                    </DataTemplate>
+                </IndicatorView.IndicatorTemplate>
+            </IndicatorView>
+            <Button
+                Clicked="ButtonClicked"
+                Text="Get Started"
+                TextColor="White"
+                HeightRequest="60"
+                BackgroundColor="Black"
+                CornerRadius="20"
+                VerticalOptions="EndAndExpand"
+                HorizontalOptions="Center"
+                WidthRequest="200"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

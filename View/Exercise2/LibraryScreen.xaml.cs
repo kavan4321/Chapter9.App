@@ -9,7 +9,8 @@ public partial class LibraryScreen : ContentPage
 	{
 		InitializeComponent();
         _viewModel=(LibraryViewModel)BindingContext;
-        _viewModel.ChangeValue();
+       _viewModel.ChangeValue();
+        _viewModel.FinishChange();  
         _viewModel.FinishEvent += FinishEvent;
 	}
 

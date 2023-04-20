@@ -54,7 +54,6 @@ namespace Chapter9.ViewModel.Exercise4ViewModel.ViewModelOrder
             Details();
             CurrentItem = OrderDetails.FirstOrDefault();
             ButtonColor = CurrentItem.Color;
-            Position = OrderDetails.IndexOf(CurrentItem) + 1;
             NextCommand = new Command(ChangeDetails);
             ChangeCommand=new Command(ChangeColor);
         }
@@ -94,15 +93,15 @@ namespace Chapter9.ViewModel.Exercise4ViewModel.ViewModelOrder
         {
 
             ButtonColor = CurrentItem.Color;
-            if (Position < OrderDetails.Count - 1)
-            {
-                Position++;
-                CurrentItem = OrderDetails.ElementAt(Position);
-            }
-            else
+            if (Position >= OrderDetails.Count - 1)
             {
                 NextPageEvent?.Invoke(this, new EventArgs());
                 Position = 0;
+            }
+            else
+            {
+                Position++;
+                CurrentItem = OrderDetails.ElementAt(Position);
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;

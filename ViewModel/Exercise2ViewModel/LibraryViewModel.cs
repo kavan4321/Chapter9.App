@@ -9,27 +9,8 @@ namespace Chapter9.ViewModel.Exercise2ViewModel.ViewModelLibrary
 {
     public class LibraryViewModel:INotifyPropertyChanged
     {
-        private ObservableCollection<LibraryModel> _libraryModels;
-        public ObservableCollection<LibraryModel> LibraryDetails 
-        { 
-            get => _libraryModels;
-            set
-            {
-                _libraryModels = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private LibraryModel _currentItem;
-        public LibraryModel CurrentItem
-        {
-            get => _currentItem;
-            set
-            {
-                _currentItem= value;
-                OnPropertyChanged();
-            }
-        }
+        public ObservableCollection<LibraryModel> LibraryDetails { get; set; }
+       
         public int _current;
         public int Current
         {
@@ -40,7 +21,6 @@ namespace Chapter9.ViewModel.Exercise2ViewModel.ViewModelLibrary
                 OnPropertyChanged();
             }
         }
-
 
         private string _buttonLabel;
         public string ButtonLabel
@@ -54,15 +34,15 @@ namespace Chapter9.ViewModel.Exercise2ViewModel.ViewModelLibrary
         }
 
         public event EventHandler FinishEvent;
-        public ICommand ChangeCommand { get; private set; }
+        public ICommand ItemChangeCommand { get; private set; }
         public ICommand NextButtonCommand { get; private set; }
+        
+     
         
         public LibraryViewModel()
         {
             Details();
-            CurrentItem =LibraryDetails.FirstOrDefault();
-            Current = LibraryDetails.IndexOf(CurrentItem);
-            ChangeCommand = new Command(ChangeValue);
+            ItemChangeCommand = new Command(ChangeValue);
             NextButtonCommand = new Command(FinishChange);
         }
 
@@ -94,22 +74,20 @@ namespace Chapter9.ViewModel.Exercise2ViewModel.ViewModelLibrary
         
         public void FinishChange()
         {
-            if (Current < LibraryDetails.Count - 1)
+            if (Current >= LibraryDetails.Count - 1)
             {
-                Current++;                  
+                FinishEvent?.Invoke(this, new EventArgs());
+                Current= 0;
             }
-            else if(Current == LibraryDetails.Count - 1 && ButtonLabel == "Finish")
+            else
             {
-                FinishEvent?.Invoke(this,new EventArgs());
-                Current = 0;
-            }    
+                Current += 1;
+            }
         }
 
         public void ChangeValue()
-        {
-            CurrentItem =LibraryDetails.ElementAt(Current);
-            
-            if (CurrentItem == LibraryDetails.Last())
+        {                  
+            if (Current == LibraryDetails.Count-1)
             {
                 ButtonLabel = "Finish";     
             }
